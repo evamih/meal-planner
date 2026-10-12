@@ -22,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -130,12 +131,11 @@ public class RetetaController {
         boolean isValidUrl = false;
         Pattern p = Pattern.compile(regex);
         // If the string is empty return false
-        if (reteta.photoUrl == null) isValidUrl = false;
-        else {
-            Matcher m = p.matcher(reteta.photoUrl);
-            isValidUrl = m.matches();
-        }
-        if(!isValidUrl && reteta.photoUrl.length() <= 455)
+        isValidUrl = reteta.photoUrl != null
+                && reteta.photoUrl.length() <= 455
+                && p.matcher(reteta.photoUrl).matches();
+
+        if(!isValidUrl)
         {
             result.rejectValue("photoUrl", "error.photoUrl",
                     "Link-ul fotografiei trebuie să fie unul valid de maxim 455 caractere");
@@ -143,14 +143,9 @@ public class RetetaController {
         if (result.hasErrors() || hasErrors) {
             return "retete-create"; // Return the form with errors
         }
-//        Reteta reteta = new Reteta(
-//                reteta.getId(),
-//                reteta.getNume(),
-//                reteta.getDescriere(),
-//                reteta.getPhotoUrl(),
-//                reteta.getTimpPreparare(),
-//                reteta.getCalorii(),
-//                reteta.getCreataLa());
+
+        if (reteta.getCreataLa() == null) reteta.setCreataLa(LocalDateTime.now());
+
         retetaService.saveReteta(reteta);
         return "redirect:/retete";
     }
@@ -214,12 +209,11 @@ public class RetetaController {
         boolean isValidUrl = false;
         Pattern p = Pattern.compile(regex);
         // If the string is empty return false
-        if (reteta.photoUrl == null) isValidUrl = false;
-        else {
-            Matcher m = p.matcher(reteta.photoUrl);
-            isValidUrl = m.matches();
-        }
-        if(!isValidUrl && reteta.photoUrl.length() <= 455)
+        isValidUrl = reteta.photoUrl != null
+                && reteta.photoUrl.length() <= 455
+                && p.matcher(reteta.photoUrl).matches();
+
+        if(!isValidUrl)
         {
             bindingResult.rejectValue("photoUrl", "error.photoUrl",
                     "Link-ul fotografiei trebuie să fie unul valid de maxim 455 caractere");
