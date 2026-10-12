@@ -1,0 +1,81 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Editare reteta</title>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <form role="form" method="post" th:action="@{/retete/{retetaId}/edit(retetaId=${reteta.id})}" th:object="${reteta}">
+            <div class="container">
+                <input type="hidden" th:field="*{id}">
+                <div class="form-row">
+                    <div class="form-group mb-3" >
+                        <label for="calorii">Calorii</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="calorii"
+
+                                th:field="*{calorii}"
+                                placeholder="000" />
+                        <p th:if="${#fields.hasErrors('calorii')}" class="text-danger" th:errors="*{calorii}"></p>
+                    </div>
+                    <div class="form-group mb-3" >
+                        <label for="descriere">Descriere</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="descriere"
+
+                                th:field="*{descriere}"
+                                placeholder="Descriere" />
+                        <p th:if="${#fields.hasErrors('descriere')}" class="text-danger" th:errors="*{descriere}"></p>
+                    </div>
+                    <div class="form-group col-md6 mb-3">
+                        <label for="nume">Nume</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="nume"
+
+                                th:field="*{nume}"
+                                placeholder="Nume">
+                        <p th:if="${#fields.hasErrors('nume')}" class="text-danger" th:errors="*{nume}"></p>
+                    </div>
+
+                    <div class="form-group mb-3" >
+                        <label for="timpPreparare">Timp de preparare (în minute)</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="timpPreparare"
+
+                                th:field="*{timpPreparare}"
+                                placeholder="000">
+                        <p th:if="${#fields.hasErrors('timpPreparare')}" class="text-danger" th:errors="*{timpPreparare}"></p>
+                    </div>
+
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="photoUrl">Photo url</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="photoUrl"
+
+                                th:field="*{photoUrl}"
+                                placeholder="Photo Url">
+                        <p th:if="${#fields.hasErrors('photoUrl')}" class="text-danger" th:errors="*{photoUrl}"></p>
+                    </div>
+                </div>
+                <button type="submit" method="post" class="btn btn-dark">Editare</button>
+            </div>
+
+        </form>
+    </section>
+</main>
+
+</body>
+</html>

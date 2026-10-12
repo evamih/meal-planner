@@ -1,0 +1,37 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Retete - lista</title>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <div class="container px-5 my-3">
+            <div class="text-center mb-5">
+                <h1 class="fw-bolder">Home</h1>
+                <p class="lead fw-normal text-muted mb-0">Cartea ta de rețete</p>
+            </div>
+            <div class="row gx-5">
+                <div>
+                    <form th:action="@{/retete/search}" class="form-inline my-2 my-lg-0 mb-1">
+                        <input name="query" class="form-control me-sm-2 mb-5" type="search" placeholder="Caută rețete" aria-label="Search">
+                    </form>
+                </div>
+                <div th:each="reteta :${retete}" class="col-lg-6 mb-3">
+                    <div class="position-relative mb-3">
+
+                        <img class="img-fluid rounded-3 mb-3"  th:src="${reteta.photoUrl}" alt="..." style="max-width: 500px; height: 300px;" /> <br>
+
+                        <a th:href="@{/retete/{id}(id=${reteta.id})}" th:text="${reteta.nume}" class="h3 fw-bolder text-decoration-none link-dark stretched-link"></a>
+                    </div>
+                    <a class="btn btn-dark" th:href="@{/retete/{retetaId}/edit(retetaId=${reteta.id})}">Edit</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

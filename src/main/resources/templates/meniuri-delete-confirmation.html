@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="'Confirmare ștergere pentru ' + ${meniu.nume}"></title>
+</head>
+<body class="d-flex flex-column">
+<section layout:fragment="body" class="py-5">
+    <div class="container mt-5">
+        <h2>Confirmare Ștergere</h2>
+        <p>Sigur doriți să ștergeți meniul "<span th:text="${meniu.nume}"></span>"?</p>
+        <form th:action="@{/meniuri/{meniuId}/delete(meniuId=${meniu.id})}" method="post">
+            <button type="submit" class="btn btn-danger">Șterge</button>
+            <a th:href="@{/meniuri}" class="btn btn-secondary">Anulează</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>

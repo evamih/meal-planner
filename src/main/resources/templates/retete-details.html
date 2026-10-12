@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title th:text="'Detalii pentru ' + ${reteta.nume}"></title>
+</head>
+<body class="d-flex flex-column">
+  <section layout:fragment="body" class="py-5">
+    <div class="d-flex flex-column align-items-center justify-content-center vh-100">
+      <h1 th:text="${reteta.nume}">Reteta Nume</h1>
+      <img class="img-fluid rounded-3 mb-3" th:src="${reteta.photoUrl}" alt="Reteta Image" style="max-width: 500px; height: auto;" />
+      <p><strong>Timp de preparare:</strong> <span th:text="${reteta.timpPreparare} + ' minute'"></span></p>
+      <p><strong>Descriere:</strong> <span th:text="${reteta.descriere}"></span></p>
+      <p><strong>Calorii:</strong> <span th:text="${reteta.calorii}"></span></p>
+    </div>
+    <div th:if="${ingrediente.size() != 0}" class="d-flex flex-column align-items-center justify-content-center">
+      <h3>Ingrediente</h3>
+      <table class="mb-3">
+        <thead>
+        <tr>
+          <th class="p-2">Nume </th>
+          <th class="p-2">Cantitate</th>
+          <th class="p-2">Unitate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ingredient : ${ingrediente}">
+          <td class="p-2" th:text="${ingredient.getIngredient().getNume()}"></td>
+          <td class="p-2" th:text="${ingredient.getCantitate()}"></td>
+          <td class="p-2" th:text="${ingredient.getUnitate()}"></td>
+          <td> <a class="btn btn-dark p-2" th:href="@{/ingrediente/{retetaId}/edit/{ingredientId}(retetaId=${reteta.id}, ingredientId=${ingredient.getIngredient().getId()})}">Editează</a></td>
+          <td> <a class="btn btn-dark p-2" th:href="@{/ingrediente/{retetaId}/delete/{ingredientId}/confirm(retetaId=${reteta.id}, ingredientId=${ingredient.getIngredient().getId()})}">Șterge</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+      <a class="btn btn-outline-dark mx-1 my-1" th:href="@{/ingrediente/{retetaId}/new(retetaId=${reteta.id})}">Adaugă un ingredient</a>
+      <a class="btn btn-outline-dark mx-1 my-1" th:href="@{/retete/{retetaId}/addToMenu(retetaId=${reteta.id})}">Adaugă la un Meniu</a>
+      <a class="btn btn-danger mx-1 my-1" th:href="@{/retete/{retetaId}/delete/confirm(retetaId=${reteta.id})}">Șterge această rețetă</a>
+      <a class="btn btn-dark mx-1 my-1" th:href="@{/retete}">Înapoi la Home</a>
+    </div>
+  </section>
+</body>
+</html>

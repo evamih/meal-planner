@@ -1,0 +1,57 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Editare ingredient</title>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <!-- Page Content-->
+    <section layout:fragment="body" class="py-5">
+        <form role="form" method="post" th:action="@{/ingrediente/{retetaId}/edit/{ingredientId}(retetaId=${retetaIngredient.getReteta().getId()}, ingredientId=${retetaIngredient.getIngredient().getId()})}" th:object="${retetaIngredient}">
+            <div class="container">
+                <input type="hidden" th:field="*{id}">
+                <div class="form-row">
+                    <div class="form-group mb-3" >
+                        <label for="cantitate">Cantitate</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="cantitate"
+
+                                th:field="*{cantitate}"
+                                placeholder="0" />
+                        <!--                        <p th:if="${errorCalorii}" class="text-danger" th:text="${errorCalorii}"></p>-->
+                        <p th:if="${#fields.hasErrors('cantitate')}" class="text-danger" th:errors="*{cantitate}"></p>
+                    </div>
+                    <div class="form-group mb-3" >
+                        <label for="unitate">Unitate de măsură</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="unitate"
+
+                                th:field="*{unitate}"
+                                placeholder="Unitate" />
+                        <p th:if="${#fields.hasErrors('unitate')}" class="text-danger" th:errors="*{unitate}"></p>
+                    </div>
+                    <div class="form-group col-md6 mb-3">
+                        <label for="nume">Nume</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="nume"
+
+                                th:field="*{ingredient.nume}"
+                                placeholder="Nume">
+                        <p th:if="${#fields.hasErrors('ingredient.nume')}" class="text-danger" th:errors="*{ingredient.nume}"></p>
+                    </div>
+                <button type="submit" method="post" class="btn btn-dark">Editare</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>
+
+</body>
+</html>

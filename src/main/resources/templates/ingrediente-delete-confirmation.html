@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="'Confirmare ștergere pentru ' + ${retetaIngredient.getIngredient().getNume()}"></title>
+</head>
+<body class="d-flex flex-column">
+<section layout:fragment="body" class="py-5">
+    <div class="container mt-5">
+        <h2>Confirmare Ștergere</h2>
+        <p>Sigur doriți să ștergeți ingredientul "<span th:text="${retetaIngredient.getIngredient().getNume()}"></span>"?</p>
+        <form th:action="@{/ingrediente/{retetaId}/delete/{ingredientId}(retetaId=${retetaIngredient.getReteta().getId()}, ingredientId=${retetaIngredient.getIngredient().getId()})}" method="post">
+            <button type="submit" class="btn btn-danger">Șterge</button>
+            <a th:href="@{/retete/{retetaId}(retetaId=${retetaIngredient.getReteta().getId()})}" class="btn btn-secondary">Anulează</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>
