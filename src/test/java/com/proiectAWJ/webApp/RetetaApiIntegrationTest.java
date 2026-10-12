@@ -62,7 +62,7 @@ class RetetaApiIntegrationTest extends AbstractIntegrationTest {
         mockMvc.perform(get("/api/retete"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
-                .andExpect(jsonPath("$[0].nume").value("Din baza de date test fail"));
+                .andExpect(jsonPath("$[0].nume").value("Din baza de date"));
     }
 
     @Test
